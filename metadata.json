@@ -1,0 +1,6 @@
+{
+  "name": "Sistema de Gestión Interna de Residuos",
+  "description": "Sistema interactivo para el registro de acopio interno y retiros de residuos, con trazabilidad ambiental y control de vencimientos.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,72 @@
+{
+  "entities": {
+    "registroInterno": {
+      "title": "RegistroInterno",
+      "description": "Registro de acopio interno de residuos",
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "tipo": { "type": "string", "enum": ["interno"] },
+        "categoria": { "type": "string", "enum": ["Residuos Industriales No Peligrosos", "Residuos Peligrosos", "RSU", "Compostables"] },
+        "corriente": { "type": "string" },
+        "fecha": { "type": "string" },
+        "cantidad": { "type": "number" },
+        "unidad": { "type": "string" }
+      },
+      "required": ["id", "tipo", "categoria", "corriente", "fecha", "cantidad", "unidad"]
+    },
+    "retiroExterno": {
+      "title": "RetiroExterno",
+      "description": "Registro de manifiesto de retiro externo",
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "tipo": { "type": "string", "enum": ["externo"] },
+        "categoria": { "type": "string", "enum": ["Residuos Industriales No Peligrosos", "Residuos Peligrosos", "RSU", "Compostables"] },
+        "corriente": { "type": "string" },
+        "fecha": { "type": "string" },
+        "manifesto": { "type": "string" },
+        "fechaManifiesto": { "type": "string" },
+        "cantEst": { "type": "string" },
+        "unidad": { "type": "string" },
+        "fechaRetiro": { "type": "string" },
+        "embalaje": { "type": "string" },
+        "observaciones": { "type": "string" },
+        "pdfCargado": { "type": "boolean" },
+        "transportista": { "type": "string" },
+        "patente": { "type": "string" },
+        "fechaTratamiento": { "type": "string" },
+        "pdfCertificadoCargado": { "type": "boolean" }
+      },
+      "required": [
+        "id",
+        "tipo",
+        "categoria",
+        "corriente",
+        "fecha",
+        "manifesto",
+        "fechaManifiesto",
+        "cantEst",
+        "unidad",
+        "fechaRetiro",
+        "embalaje",
+        "observaciones",
+        "pdfCargado",
+        "transportista",
+        "patente",
+        "fechaTratamiento",
+        "pdfCertificadoCargado"
+      ]
+    }
+  },
+  "firestore": {
+    "/registros/{registroId}": {
+      "schema": "registroInterno",
+      "description": "Lista de registros de acopio interno"
+    },
+    "/retiros/{retiroId}": {
+      "schema": "retiroExterno",
+      "description": "Lista de registros de retiros externos"
+    }
+  }
+}

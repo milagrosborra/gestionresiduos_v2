@@ -1,0 +1,75 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Catch-all default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isValidRegistroInterno(data) {
+      return data.keys().hasAll(['id', 'tipo', 'categoria', 'corriente', 'fecha', 'cantidad', 'unidad'])
+        && data.keys().size() == 7
+        && data.id is int
+        && data.tipo == 'interno'
+        && (data.categoria == 'Residuos Industriales No Peligrosos'
+            || data.categoria == 'Residuos Peligrosos'
+            || data.categoria == 'RSU'
+            || data.categoria == 'Compostables')
+        && data.corriente is string && data.corriente.size() <= 200
+        && data.fecha is string && data.fecha.size() <= 20
+        && (data.cantidad is int || data.cantidad is float) && data.cantidad >= 0
+        && data.unidad is string && data.unidad.size() <= 45;
+    }
+
+    function isValidRetiroExterno(data) {
+      return data.keys().hasAll([
+        'id', 'tipo', 'categoria', 'corriente', 'fecha',
+        'manifesto', 'fechaManifiesto', 'cantEst', 'unidad',
+        'fechaRetiro', 'embalaje', 'observaciones', 'pdfCargado',
+        'transportista', 'patente', 'fechaTratamiento', 'pdfCertificadoCargado'
+      ])
+        && data.keys().size() == 17
+        && data.id is int
+        && data.tipo == 'externo'
+        && (data.categoria == 'Residuos Industriales No Peligrosos'
+            || data.categoria == 'Residuos Peligrosos'
+            || data.categoria == 'RSU'
+            || data.categoria == 'Compostables')
+        && data.corriente is string && data.corriente.size() <= 200
+        && data.fecha is string && data.fecha.size() <= 20
+        && data.manifesto is string && data.manifesto.size() <= 100
+        && data.fechaManifiesto is string && data.fechaManifiesto.size() <= 20
+        && data.cantEst is string && data.cantEst.size() <= 100
+        && data.unidad is string && data.unidad.size() <= 45
+        && data.fechaRetiro is string && data.fechaRetiro.size() <= 20
+        && data.embalaje is string && data.embalaje.size() <= 100
+        && data.observaciones is string && data.observaciones.size() <= 1000
+        && data.pdfCargado is bool
+        && data.transportista is string && data.transportista.size() <= 200
+        && data.patente is string && data.patente.size() <= 50
+        && data.fechaTratamiento is string && data.fechaTratamiento.size() <= 20
+        && data.pdfCertificadoCargado is bool;
+    }
+
+    match /registros/{registroId} {
+      allow get, delete: if isValidId(registroId);
+      allow list: if true;
+      allow create: if isValidId(registroId) && isValidRegistroInterno(incoming());
+      allow update: if isValidId(registroId) && isValidRegistroInterno(incoming()) && incoming().id == existing().id;
+    }
+
+    match /retiros/{retiroId} {
+      allow get, delete: if isValidId(retiroId);
+      allow list: if true;
+      allow create: if isValidId(retiroId) && isValidRetiroExterno(incoming());
+      allow update: if isValidId(retiroId) && isValidRetiroExterno(incoming()) && incoming().id == existing().id;
+    }
+  }
+}
