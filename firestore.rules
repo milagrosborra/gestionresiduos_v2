@@ -16,12 +16,13 @@ service cloud.firestore {
     function isValidRegistroInterno(data) {
       return data.keys().hasAll(['id', 'tipo', 'categoria', 'corriente', 'fecha', 'cantidad', 'unidad'])
         && data.keys().size() == 7
-        && data.id is int
+        && (data.id is int || data.id is float)
         && data.tipo == 'interno'
         && (data.categoria == 'Residuos Industriales No Peligrosos'
             || data.categoria == 'Residuos Peligrosos'
             || data.categoria == 'RSU'
-            || data.categoria == 'Compostables')
+            || data.categoria == 'Compostables'
+            || data.categoria == 'NFU')
         && data.corriente is string && data.corriente.size() <= 200
         && data.fecha is string && data.fecha.size() <= 20
         && (data.cantidad is int || data.cantidad is float) && data.cantidad >= 0
@@ -36,12 +37,13 @@ service cloud.firestore {
         'transportista', 'patente', 'fechaTratamiento', 'pdfCertificadoCargado'
       ])
         && data.keys().size() == 17
-        && data.id is int
+        && (data.id is int || data.id is float)
         && data.tipo == 'externo'
         && (data.categoria == 'Residuos Industriales No Peligrosos'
             || data.categoria == 'Residuos Peligrosos'
             || data.categoria == 'RSU'
-            || data.categoria == 'Compostables')
+            || data.categoria == 'Compostables'
+            || data.categoria == 'NFU')
         && data.corriente is string && data.corriente.size() <= 200
         && data.fecha is string && data.fecha.size() <= 20
         && data.manifesto is string && data.manifesto.size() <= 100

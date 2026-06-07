@@ -5,7 +5,7 @@
 
 import React from "react";
 import { motion } from "motion/react";
-import { ClipboardList, Truck, Landmark, AlertTriangle, ShieldAlert, Leaf, BookOpen } from "lucide-react";
+import { ClipboardList, Truck, Landmark, AlertTriangle, ShieldAlert, Leaf, BookOpen, Github } from "lucide-react";
 import { AlertaAlmacenamiento } from "../types";
 
 interface HomeScreenProps {
@@ -181,9 +181,13 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ setScreen, alerts }) => 
       </div>
 
       {/* Footer Branding Area */}
-      <footer className="py-6 border-t border-slate-200 bg-white/40 text-center text-xs text-slate-500">
-        <p className="mb-1 font-semibold text-slate-700 uppercase tracking-wider">Sistema de Gestión Integral &copy; 2026</p>
-        <p className="text-[10px]">Control de Trazabilidad y Almacenamiento Transitorio de Residuos</p>
+      <footer className="py-6 border-t border-slate-200 bg-white/40 text-center text-xs text-slate-500 flex flex-col items-center justify-center gap-1.5">
+        <p className="m-0 font-semibold text-slate-705 uppercase tracking-wider">Sistema de Gestión Integral &copy; 2026</p>
+        <p className="text-[10px] m-0">Control de Trazabilidad y Almacenamiento Transitorio de Residuos</p>
+        <div className="flex items-center gap-2 mt-1 text-slate-400">
+          <Github className="w-4 h-4 text-slate-500" />
+          <span className="text-[10px] font-medium text-slate-550 select-none">Repositorio sincronizado con GitHub</span>
+        </div>
       </footer>
     </div>
   );

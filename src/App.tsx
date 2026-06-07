@@ -61,7 +61,7 @@ export default function App() {
       });
 
       if (snapshot.empty) {
-        const alreadySeeded = localStorage.getItem("sistema_db_seeded_v1");
+        const alreadySeeded = localStorage.getItem("sistema_db_seeded_registros_v2");
         if (!alreadySeeded) {
           // Cloud database is empty and first-time use, seed default values in cloud
           INITIAL_REGISTROS.forEach((item) => {
@@ -69,7 +69,7 @@ export default function App() {
               handleFirestoreError(err, OperationType.CREATE, `registros/${item.id}`);
             });
           });
-          localStorage.setItem("sistema_db_seeded_v1", "true");
+          localStorage.setItem("sistema_db_seeded_registros_v2", "true");
         } else {
           setRegistros([]);
         }
@@ -88,7 +88,7 @@ export default function App() {
       });
 
       if (snapshot.empty) {
-        const alreadySeeded = localStorage.getItem("sistema_db_seeded_v1");
+        const alreadySeeded = localStorage.getItem("sistema_db_seeded_retiros_v2");
         if (!alreadySeeded) {
           // Cloud database is empty and first-time use, seed default values in cloud
           INITIAL_RETIROS.forEach((item) => {
@@ -96,7 +96,7 @@ export default function App() {
               handleFirestoreError(err, OperationType.CREATE, `retiros/${item.id}`);
             });
           });
-          localStorage.setItem("sistema_db_seeded_v1", "true");
+          localStorage.setItem("sistema_db_seeded_retiros_v2", "true");
         } else {
           setRetiros([]);
         }

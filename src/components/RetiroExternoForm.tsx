@@ -78,7 +78,7 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
     unidadFinal !== habitual && 
     categoria !== "Residuos Peligrosos";
 
-  const isPdfRequired = categoria === "Residuos Peligrosos";
+  const isPdfRequired = false;
 
   function validate() {
     const e: Record<string, string> = {};
@@ -123,10 +123,6 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
 
     if (transportista === "Otros" && !transportistaCustom.trim()) {
       e.transportista = "Especifique el operador transportista.";
-    }
-
-    if (isPdfRequired && !pdfCargado) {
-      e.pdf = "Atención: Los manifiestos de Residuos Peligrosos requieren copia PDF obligatoria.";
     }
 
     return e;
@@ -276,7 +272,7 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
                 Categoría
               </label>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-                {["Residuos Peligrosos", "Residuos Industriales No Peligrosos", "RSU"].map((cat) => {
+                {["Residuos Peligrosos", "Residuos Industriales No Peligrosos", "NFU"].map((cat) => {
                   const color = CAT_COLOR[cat];
                   const active = categoria === cat;
                   return (

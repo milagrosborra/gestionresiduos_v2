@@ -148,13 +148,13 @@ export const HistorialTable: React.FC<HistorialTableProps> = ({ data, tipo, setD
     fechaRetiro: "F. retiro",
     embalaje: "Embalaje",
     observaciones: "Observaciones",
-    pdfCargado: "Manifiesto PDF",
+    pdfCargado: "Manifiesto pdf",
 
     // GESTIÓN EXTERNA
     transportista: "Op. transportista",
     patente: "Patente",
     fechaTratamiento: "F. tratamiento",
-    pdfCertificadoCargado: "Certificado PDF"
+    pdfCertificadoCargado: "Certificado pdf"
   };
 
   // Extract all files currently loaded in the repository from previous saves

@@ -7,7 +7,8 @@ export type CategoriaResiduo =
   | "Residuos Industriales No Peligrosos"
   | "Residuos Peligrosos"
   | "RSU"
-  | "Compostables";
+  | "Compostables"
+  | "NFU";
 
 export interface RegistroInterno {
   id: number;

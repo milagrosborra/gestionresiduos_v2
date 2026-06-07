@@ -7,7 +7,6 @@ import { RegistroInterno, RetiroExterno } from "./types";
 
 export const CORRIENTES = {
   "Residuos Industriales No Peligrosos": [
-    "NFU",
     "NP9 (Chatarra)",
     "NP28 (Pallets de madera)",
     "NP31 (Cartones)",
@@ -21,7 +20,8 @@ export const CORRIENTES = {
     "Y48-Y8/Y9"
   ],
   "RSU": ["RSU"],
-  "Compostables": ["Compostables"]
+  "Compostables": ["Compostables"],
+  "NFU": ["NFU"]
 } as const;
 
 export const UNIDAD_HABITUAL: Record<string, string> = {
@@ -59,7 +59,8 @@ export const CAT_COLOR: Record<string, string> = {
   "Residuos Peligrosos": COLORS.danger,
   "Residuos Industriales No Peligrosos": COLORS.blue,
   "RSU": COLORS.green,
-  "Compostables": COLORS.compost
+  "Compostables": COLORS.compost,
+  "NFU": "#0f766e"
 };
 
 export const HOME_COLORS = {
