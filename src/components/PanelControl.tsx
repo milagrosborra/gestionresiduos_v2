@@ -29,7 +29,6 @@ export const PanelControl: React.FC<PanelControlProps> = ({
   alerts
 }) => {
   const [tab, setTab] = useState<"interno" | "externo">("interno");
-  const [subTab, setSubTab] = useState<"historial" | "dashboard">("historial");
 
   return (
     <div className="min-h-screen bg-[#f8fafc] pb-12 selection:bg-sky-500 selection:text-white">
@@ -83,7 +82,7 @@ export const PanelControl: React.FC<PanelControlProps> = ({
               onClick={() => { setTab("externo"); setPageToOne(); }}
               className={`flex-1 sm:flex-initial text-center px-5 py-2.5 rounded-lg text-xs font-bold transition-all tracking-wide cursor-pointer ${
                 tab === "externo" 
-                  ? "bg-white text-slate-900 shadow-sm" 
+                  ? "bg-white text-[#0f172a] shadow-sm font-black" 
                   : "text-slate-500 hover:text-slate-800"
               }`}
             >
@@ -91,55 +90,40 @@ export const PanelControl: React.FC<PanelControlProps> = ({
             </button>
           </div>
 
-          {/* Sub Tabs: LISTING VS CHARTS */}
-          <div className="flex gap-1.5 shrink-0 bg-slate-100/60 p-1 rounded-xl">
-            <button
-              onClick={() => setSubTab("historial")}
-              className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-extrabold transition-all cursor-pointer ${
-                subTab === "historial" 
-                  ? "bg-slate-900 text-white shadow-sm" 
-                  : "text-slate-500 hover:text-slate-700"
-              }`}
-            >
-              <Library className="w-3.5 h-3.5" />
-              Historia
-            </button>
-            <button
-              onClick={() => setSubTab("dashboard")}
-              className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-extrabold transition-all cursor-pointer ${
-                subTab === "dashboard" 
-                  ? "bg-slate-900 text-white shadow-sm" 
-                  : "text-slate-500 hover:text-slate-700"
-              }`}
-            >
-              <BarChart4 className="w-3.5 h-3.5" />
-              Indicadores
-            </button>
-          </div>
-
         </div>
 
         {/* Selected Area Content view render */}
         <motion.div
-          key={`${tab}-${subTab}`}
+          key={`${tab}`}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.25 }}
-          className="min-h-[400px]"
+          className="space-y-8"
         >
-          {subTab === "historial" ? (
-            <HistorialTable
-              data={tab === "interno" ? registros : retiros}
-              tipo={tab}
-              setData={tab === "interno" ? setRegistros : setRetiros}
-            />
-          ) : (
-            <DashboardCharts
-              registros={registros}
-              retiros={retiros}
-              tipo={tab}
-            />
-          )}
+          {/* Top segment: Quantities, Metrics, and Analytics */}
+          <DashboardCharts
+            registros={registros}
+            retiros={retiros}
+            tipo={tab}
+          />
+
+          {/* Section Divider with Table Description */}
+          <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-1">
+            <span className="text-[9px] font-black text-sky-600 uppercase tracking-widest block">HISTORIAL CRONOLÓGICO</span>
+            <h3 className="text-sm font-black text-slate-800 uppercase tracking-wider m-0">
+              {tab === "interno" ? "Tabla de Registro Técnico Interno" : "Tabla Técnica de Trazabilidad y Manifiestos"}
+            </h3>
+            <p className="text-xs text-slate-500 m-0 leading-relaxed">
+              Consulte el listado estructurado de los registros declarados para realizar auditorías, filtrados rápidos y búsquedas avanzadas.
+            </p>
+          </div>
+
+          {/* Bottom segment: Combined Detail History Table */}
+          <HistorialTable
+            data={tab === "interno" ? registros : retiros}
+            tipo={tab}
+            setData={tab === "interno" ? setRegistros : setRetiros}
+          />
         </motion.div>
 
       </div>

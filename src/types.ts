@@ -39,6 +39,7 @@ export interface RetiroExterno {
   linkManifiesto?: string; // Link to electronic manifest
 
   // GESTIÓN EXTERNA
+  sitioDisposicion?: string; // Sitio de disposición transitoria (for NFU)
   transportista: string; // Operador Transportista (dropdown or Otros)
   patente: string; // Patente vehículo
   fechaTratamiento: string; // Fecha de tratamiento

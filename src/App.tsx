@@ -196,6 +196,8 @@ export default function App() {
               <RegistroInternoForm 
                 setScreen={setScreen} 
                 onSave={(newReg) => handleSetRegistros(prev => [...prev, { ...newReg, id: Date.now(), tipo: "interno" }])}
+                registros={registros}
+                retiros={retiros}
               />
             </motion.div>
           )}

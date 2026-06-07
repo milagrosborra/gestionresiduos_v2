@@ -128,6 +128,7 @@ export const HistorialTable: React.FC<HistorialTableProps> = ({ data, tipo, setD
         "embalaje",
         "observaciones",
         "linkManifiesto",
+        "sitioDisposicion",
         "transportista",
         "patente",
         "fechaTratamiento",
@@ -151,6 +152,7 @@ export const HistorialTable: React.FC<HistorialTableProps> = ({ data, tipo, setD
     linkManifiesto: "Link a Manifiesto electrónico",
 
     // GESTIÓN EXTERNA
+    sitioDisposicion: "Sitio disp. transitoria",
     transportista: "Op. transportista",
     patente: "Patente",
     fechaTratamiento: "F. tratamiento",

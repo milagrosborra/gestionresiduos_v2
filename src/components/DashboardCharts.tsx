@@ -7,7 +7,8 @@ import React, { useMemo } from "react";
 import { RegistroInterno, RetiroExterno, TasaGeneracion } from "../types";
 import { CAT_COLOR, COLORS } from "../constants";
 import { parseDate, daysBetween } from "../utils";
-import { TrendingUp, FileSpreadsheet, Scale, Info } from "lucide-react";
+import { TrendingUp, FileSpreadsheet, Scale, Info, Download, FileText } from "lucide-react";
+import { exportIndicadoresPDF } from "../utils/pdfGenerator";
 
 interface DashboardChartsProps {
   registros: RegistroInterno[];
@@ -115,6 +116,24 @@ export const DashboardCharts: React.FC<DashboardChartsProps> = ({ registros, ret
   return (
     <div className="space-y-6">
       
+      {/* SGI Operational Control Panel: PDF Export indicator trigger */}
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white border border-slate-200 p-5 rounded-2xl shadow-sm">
+        <div className="space-y-1 text-center sm:text-left">
+          <span className="text-[10px] font-black text-sky-600 uppercase tracking-widest block">CONTROL DE TRAZABILIDAD SGI</span>
+          <h3 className="text-sm font-black text-slate-800 uppercase tracking-wider m-0">Reporte de Indicadores Ambientales</h3>
+          <p className="text-xs text-slate-500 m-0 leading-relaxed">
+            Consolide el informe estadístico oficial de stock, corrientes y tasas de generación transitorias.
+          </p>
+        </div>
+        <button
+          onClick={() => exportIndicadoresPDF(tipo, totalKg, totalReg, byCorriente, byCat, tasaGen)}
+          className="w-full sm:w-auto px-5 py-3 bg-slate-900 border border-slate-950 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2.5 shadow-sm cursor-pointer active:scale-97 shrink-0 tracking-wider uppercase"
+        >
+          <FileText className="w-4 h-4 text-emerald-400" />
+          Exportar PDF Oficial
+        </button>
+      </div>
+
       {/* Metrics Overviews */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         

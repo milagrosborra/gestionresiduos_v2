@@ -73,7 +73,35 @@ export const HOME_COLORS = {
 };
 
 // Initial realistic seed datasets for testability and visualization
-export const INITIAL_REGISTROS: RegistroInterno[] = [];
+export const INITIAL_REGISTROS: RegistroInterno[] = [
+  {
+    id: 110001,
+    tipo: "interno",
+    categoria: "Residuos Peligrosos",
+    corriente: "Y8",
+    fecha: "12/05/2024", // Más de 2 años (25 meses)
+    cantidad: 450,
+    unidad: "Kilogramos"
+  },
+  {
+    id: 110002,
+    tipo: "interno",
+    categoria: "Residuos Peligrosos",
+    corriente: "Y9",
+    fecha: "15/08/2024", // Alerta de 22 meses
+    cantidad: 300,
+    unidad: "Kilogramos"
+  },
+  {
+    id: 110003,
+    tipo: "interno",
+    categoria: "Residuos Industriales No Peligrosos",
+    corriente: "NP9 (Chatarra)",
+    fecha: "10/01/2026",
+    cantidad: 1200,
+    unidad: "Kilogramos"
+  }
+];
 
 export const INITIAL_RETIROS: RetiroExterno[] = [];
 

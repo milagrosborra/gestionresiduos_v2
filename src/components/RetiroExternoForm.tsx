@@ -31,6 +31,7 @@ interface RetiroExternoFormProps {
     linkManifiesto?: string;
 
     // GESTIÓN EXTERNA
+    sitioDisposicion?: string;
     transportista: string;
     patente: string;
     fechaTratamiento: string;
@@ -57,7 +58,8 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
   const [linkManifiesto, setLinkManifiesto] = useState<string>("");
 
   // GESTIÓN EXTERNA
-  const [transportista, setTr] = useState<string>("IDM S.A.");
+  const [sitioDisposicion, setSitioDisposicion] = useState<string>("CAT de NFU. Municipalidad Coronda");
+  const [transportista, setTr] = useState<string>("WORMS");
   const [transportistaCustom, setTrCustom] = useState<string>("");
   const [patente, setPat] = useState<string>("");
   const [fechaTratamiento, setFechaTratamiento] = useState<string>(today());
@@ -155,6 +157,7 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
       linkManifiesto: linkManifiesto.trim(),
 
       // GESTIÓN EXTERNA
+      sitioDisposicion: categoria === "NFU" ? sitioDisposicion : "",
       transportista: transportistaFinal,
       patente: patente || "Sin especificar",
       fechaTratamiento,
@@ -181,7 +184,8 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
       setObservaciones("");
       setLinkManifiesto("");
       
-      setTr("IDM S.A.");
+      setSitioDisposicion("CAT de NFU. Municipalidad Coronda");
+      setTr("WORMS");
       setTrCustom("");
       setPat("");
       setFechaTratamiento(today());
@@ -190,8 +194,8 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 py-10 px-4 flex flex-col justify-between selection:bg-sky-500 selection:text-white">
-      <div className="max-w-xl w-full mx-auto bg-sky-50 border border-sky-250 shadow-xl rounded-2xl overflow-hidden self-center my-auto">
+    <div className="min-h-screen bg-[#eef4fa] py-10 px-4 flex flex-col justify-between selection:bg-sky-500 selection:text-white">
+      <div className="max-w-xl w-full mx-auto bg-sky-50 border border-sky-200 shadow-xl rounded-2xl overflow-hidden self-center my-auto">
         
         {/* Form header */}
         <div className="bg-slate-900 px-6 py-5 text-white flex items-center justify-between">
@@ -454,6 +458,23 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
             </div>
 
             <div className="space-y-4">
+              {/* Conditional Field: Sitio de disposición transitoria displayed BEFORE Operador Transportista if categoria is NFU */}
+              {categoria === "NFU" && (
+                <div className="space-y-1.5 bg-sky-200/20 p-3.5 border border-sky-200 rounded-xl">
+                  <label className="block text-xs font-black text-sky-800 tracking-wider uppercase">
+                    Sitio de disposición transitoria
+                  </label>
+                  <select
+                    value={sitioDisposicion}
+                    onChange={e => setSitioDisposicion(e.target.value)}
+                    className="w-full rounded-xl border border-sky-300 bg-white px-4 py-3 text-sm focus:border-sky-500 outline-none font-semibold text-slate-900 cursor-pointer"
+                  >
+                    <option value="CAT de NFU. Municipalidad Coronda">CAT de NFU. Municipalidad Coronda</option>
+                    <option value="Relleno Sanitario SF(**)">Relleno Sanitario SF(**)</option>
+                  </select>
+                </div>
+              )}
+
               <div className="space-y-1.5">
                 <label className="block text-xs font-bold text-slate-700 tracking-wider uppercase">Operador Transportista</label>
                 <select
@@ -464,9 +485,10 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
                   }}
                   className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm focus:border-sky-500 outline-none font-semibold text-slate-900 cursor-pointer"
                 >
-                  <option value="IDM S.A.">IDM S.A.</option>
-                  <option value="Bravo Energy">Bravo Energy</option>
-                  <option value="PELCO">PELCO</option>
+                  <option value="WORMS">WORMS</option>
+                  <option value="Coop. Mundo Reciclado">Coop. Mundo Reciclado</option>
+                  <option value="MSCF">MSCF</option>
+                  <option value="JITSA">JITSA</option>
                   <option value="Otros">Otros</option>
                 </select>
 
@@ -550,7 +572,7 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
         </div>
       </div>
       
-      <p className="text-center text-[10px] text-gray-400 font-semibold uppercase tracking-wider mt-4">
+      <p className="text-center text-[10px] text-slate-500 font-semibold uppercase tracking-wider mt-4">
         Asignación de Certificación de Control Ambiental
       </p>
     </div>
