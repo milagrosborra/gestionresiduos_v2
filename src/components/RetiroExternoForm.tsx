@@ -235,11 +235,11 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 py-10 px-4 flex flex-col justify-between selection:bg-sky-500 selection:text-white">
-      <div className="max-w-2xl w-full mx-auto bg-sky-50 border border-sky-250 shadow-xl rounded-2xl overflow-hidden self-center">
+    <div className="min-h-screen bg-slate-950 py-10 px-4 flex flex-col justify-between selection:bg-sky-500 selection:text-white">
+      <div className="max-w-2xl w-full mx-auto bg-slate-900 border border-slate-800 shadow-2xl rounded-2xl overflow-hidden self-center my-auto">
         
         {/* Form header */}
-        <div className="bg-slate-900 px-6 py-5 text-white flex items-center justify-between">
+        <div className="bg-slate-950 px-6 py-5 text-white flex items-center justify-between border-b border-slate-800">
           <div className="flex items-center gap-3">
             <button 
               onClick={() => setScreen("home")}
@@ -249,7 +249,7 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
               <ArrowLeft className="w-5 h-5" />
             </button>
             <div>
-              <h2 className="text-xl font-black tracking-wider m-0 uppercase">REGISTRO DE RETIRO EXTERNO</h2>
+              <h2 className="text-xl font-black tracking-wider m-0 uppercase text-white">REGISTRO DE RETIRO EXTERNO</h2>
               <p className="text-[10px] text-slate-400 tracking-wider uppercase font-semibold">Trazabilidad de Despachos SGI</p>
             </div>
           </div>
@@ -262,16 +262,16 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
         <div className="p-6 space-y-6">
 
           {/* BASIC COMMON FIELDS: CATEGORY & STREAM */}
-          <div className="p-4 bg-sky-100/40 border border-sky-200/85 rounded-xl space-y-4">
-            <div className="text-xs font-black text-slate-800 uppercase tracking-widest pl-1">
+          <div className="p-4 bg-slate-950 border border-slate-800 rounded-xl space-y-4">
+            <div className="text-xs font-black text-slate-100 uppercase tracking-widest pl-1">
               Clasificación del Residuo
             </div>
             
             <div className="space-y-2">
-              <label className="block text-xs font-bold text-slate-700 tracking-wider uppercase">
+              <label className="block text-xs font-bold text-slate-300 tracking-wider uppercase">
                 Categoría
               </label>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+              <div className="flex flex-col gap-2">
                 {["Residuos Peligrosos", "Residuos Industriales No Peligrosos", "NFU"].map((cat) => {
                   const color = CAT_COLOR[cat];
                   const active = categoria === cat;
@@ -287,12 +287,12 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
                       className={`text-left px-4 py-2.5 rounded-xl border text-xs font-semibold transition-all duration-150 flex items-center justify-between ${
                         active 
                           ? "shadow-sm border-2 font-bold" 
-                          : "border-slate-200 bg-white hover:bg-slate-50 text-slate-700"
+                          : "border-slate-800 bg-slate-900 hover:bg-slate-850 text-slate-300"
                       }`}
                       style={{ 
                         borderColor: active ? color : undefined,
                         color: active ? color : undefined,
-                        backgroundColor: active ? `${color}10` : undefined
+                        backgroundColor: active ? `${color}15` : undefined
                       }}
                     >
                       <span>{cat}</span>
@@ -317,7 +317,7 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
                     setCor(e.target.value);
                     setErrors(prev => ({ ...prev, corriente: "" }));
                   }}
-                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm focus:border-sky-500 outline-none"
+                  className="w-full rounded-xl border border-slate-750 bg-white px-4 py-3 text-sm focus:border-sky-500 outline-none text-slate-900"
                 >
                   <option value="">-- Seleccionar Corriente --</option>
                   {corrientes.map(c => (
@@ -329,16 +329,16 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
 
             <div className="space-y-4">
               <FLabel label="Fecha Declaración General" error={errors.fecha}>
-                <DateInput value={fecha} onChange={setFecha} className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm focus:border-sky-500" />
+                <DateInput value={fecha} onChange={setFecha} className="w-full rounded-xl border border-slate-750 bg-white px-4 py-3 text-sm focus:border-sky-500 text-slate-900" />
               </FLabel>
             </div>
           </div>
 
           {/* 1. GESTIÓN INTERNA */}
-          <div className="border border-sky-200 rounded-2xl p-5 bg-sky-100/50 space-y-5">
-            <div className="flex items-center gap-2 border-b border-sky-100/60 pb-3">
-              <Server className="w-5 h-5 text-sky-600" />
-              <h3 className="text-sm font-black text-sky-950 uppercase tracking-wider">GESTIÓN INTERNA</h3>
+          <div className="border border-slate-800 rounded-2xl p-5 bg-slate-950 space-y-5">
+            <div className="flex items-center gap-2 border-b border-slate-800 pb-3">
+              <Server className="w-5 h-5 text-sky-400" />
+              <h3 className="text-sm font-black text-sky-400 uppercase tracking-wider m-0">GESTIÓN INTERNA</h3>
             </div>
 
             <div className="space-y-4">
@@ -351,12 +351,12 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
                     setMan(e.target.value);
                     setErrors(prev => ({ ...prev, manifesto: "" }));
                   }}
-                  className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm focus:border-sky-500 outline-none bg-white"
+                  className="w-full rounded-xl border border-slate-750 px-4 py-3 text-sm focus:border-sky-500 outline-none bg-white text-slate-900"
                 />
               </FLabel>
 
               <FLabel label="Fecha Manifiesto" error={errors.fechaManifiesto}>
-                <DateInput value={fechaManifiesto} onChange={setFechaManifiesto} className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm focus:border-sky-500" />
+                <DateInput value={fechaManifiesto} onChange={setFechaManifiesto} className="w-full rounded-xl border border-slate-755 bg-white px-4 py-3 text-sm focus:border-sky-500 text-slate-900" />
               </FLabel>
             </div>
 
@@ -370,12 +370,12 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
                     setCant(e.target.value);
                     setErrors(prev => ({ ...prev, cantEst: "" }));
                   }}
-                  className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm focus:border-sky-500 outline-none bg-white"
+                  className="w-full rounded-xl border border-slate-750 px-4 py-3 text-sm focus:border-sky-500 outline-none bg-white text-slate-900"
                 />
               </FLabel>
 
               <div className="space-y-1.5">
-                <label className="block text-xs font-bold text-slate-700 tracking-wider uppercase">Unidad de Medida</label>
+                <label className="block text-xs font-bold text-slate-300 tracking-wider uppercase">Unidad de Medida</label>
                 <div className="flex flex-wrap gap-1.5">
                   {[...UNIDADES, "Otra"].map((u) => {
                     const active = unidad === u;
@@ -386,8 +386,8 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
                         onClick={() => setUni(u)}
                         className={`px-3 py-2 rounded-lg border text-xs font-semibold cursor-pointer transition-all ${
                           active 
-                            ? "bg-slate-900 border-slate-900 text-white font-bold" 
-                            : "border-slate-300 bg-white hover:bg-slate-50 text-slate-700"
+                            ? "bg-sky-600 border-sky-500 text-white font-bold" 
+                            : "border-slate-800 bg-slate-900 hover:bg-slate-850 text-slate-350"
                         }`}
                       >
                         {u}
@@ -401,7 +401,7 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
                     placeholder="Especifique unidad (ej. Contenedor)"
                     value={unidadCustom}
                     onChange={e => setUC(e.target.value)}
-                    className="w-full rounded-xl border border-slate-300 px-4 py-2.5 text-sm focus:border-sky-500 mt-2 bg-white"
+                    className="w-full rounded-xl border border-slate-750 px-4 py-2.5 text-sm focus:border-sky-500 mt-2 bg-white text-slate-900"
                   />
                 )}
                 {errors.unidad && (
@@ -415,18 +415,18 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
 
             <div className="space-y-4">
               <FLabel label="Fecha de Retiro" error={errors.fechaRetiro}>
-                <DateInput value={fechaRetiro} onChange={setFR} className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm focus:border-sky-500 text-slate-800" />
+                <DateInput value={fechaRetiro} onChange={setFR} className="w-full rounded-xl border border-slate-750 bg-white px-4 py-3 text-sm focus:border-sky-500 text-slate-900" />
               </FLabel>
 
               <div className="space-y-1.5">
-                <label className="block text-xs font-bold text-slate-700 tracking-wider uppercase">Embalaje</label>
+                <label className="block text-xs font-bold text-slate-300 tracking-wider uppercase">Embalaje</label>
                 <select
                   value={embalaje}
                   onChange={e => {
                     setEmbalaje(e.target.value);
                     setEmbalajeCustom("");
                   }}
-                  className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm focus:border-sky-500 outline-none font-semibold text-slate-700 cursor-pointer"
+                  className="w-full rounded-xl border border-slate-750 bg-white px-4 py-3 text-sm focus:border-sky-500 outline-none font-semibold text-slate-900 cursor-pointer"
                 >
                   <option value="1A1">1A1</option>
                   <option value="granel">granel</option>
@@ -439,7 +439,7 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
                     placeholder="Escriba el tipo de embalaje"
                     value={embalajeCustom}
                     onChange={e => setEmbalajeCustom(e.target.value)}
-                    className="w-full rounded-xl border border-slate-300 px-4 py-2.5 text-sm focus:border-sky-500 mt-2 bg-white"
+                    className="w-full rounded-xl border border-slate-750 px-4 py-2.5 text-sm focus:border-sky-500 mt-2 bg-white text-slate-900"
                   />
                 )}
                 {errors.embalaje && (
@@ -457,13 +457,13 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
                 value={observaciones}
                 onChange={e => setObservaciones(e.target.value)}
                 rows={2}
-                className="w-full rounded-xl border border-slate-300 px-4 py-2.5 text-sm focus:border-sky-500 outline-none bg-white font-sans"
+                className="w-full rounded-xl border border-slate-750 px-4 py-2.5 text-sm focus:border-sky-500 outline-none bg-white text-slate-900 font-sans"
               />
             </FLabel>
 
             {showWarn && (
-              <div className="p-3 bg-amber-50 border border-amber-200 text-amber-800 rounded-xl text-xs flex gap-2 items-center">
-                <HelpCircle className="w-4 h-4 text-amber-600 flex-shrink-0" />
+              <div className="p-3 bg-amber-950/40 border border-amber-900 text-amber-300 rounded-xl text-xs flex gap-2 items-center">
+                <HelpCircle className="w-4 h-4 text-amber-400 flex-shrink-0" />
                 <span>
                   Control de Unidad: La unidad de medida para <strong>{corriente}</strong> suele ser <strong>{habitual}</strong>.
                 </span>
@@ -472,8 +472,8 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
 
             {/* Simulated File Upload Drag/Drop zone - Manifest */}
             <div className="space-y-2">
-              <label className="block text-xs font-bold text-slate-700 tracking-wider uppercase">
-                Manifiesto electrónico (PDF) {isPdfRequired && <span className="text-amber-600 font-semibold">(Obligatorio p/ Peligrosos)</span>}
+              <label className="block text-xs font-bold text-slate-350 tracking-wider uppercase">
+                Manifiesto electrónico (PDF) {isPdfRequired && <span className="text-amber-405 font-semibold text-amber-400">(Obligatorio p/ Peligrosos)</span>}
               </label>
               <div
                 onDragEnter={handleDrag}
@@ -482,20 +482,20 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
                 onDrop={handleDrop}
                 className={`border-2 border-dashed rounded-xl p-5 text-center transition-all ${
                   pdfCargado 
-                    ? "border-emerald-400 bg-emerald-50/20 text-emerald-800" 
+                    ? "border-emerald-500 bg-emerald-950/20 text-emerald-300" 
                     : dragActive 
-                    ? "border-sky-500 bg-sky-50/50 text-sky-800" 
-                    : "border-slate-300 hover:border-slate-400 bg-slate-50/20 text-slate-600"
+                    ? "border-sky-500 bg-sky-950/30 text-sky-300" 
+                    : "border-slate-850 hover:border-slate-750 bg-slate-900/50 text-slate-400"
                 }`}
               >
                 {pdfCargado ? (
                   <div className="flex flex-col items-center gap-1.5">
-                    <FileText className="w-7 h-7 text-emerald-500" />
-                    <div className="text-xs font-bold uppercase tracking-wider">Manifiesto_Cargado.pdf</div>
+                    <FileText className="w-7 h-7 text-emerald-400" />
+                    <div className="text-xs font-bold uppercase tracking-wider text-slate-205">Manifiesto_Cargado.pdf</div>
                     <button 
                       type="button"
                       onClick={() => setPdf(false)}
-                      className="text-xs text-red-500 mt-1 hover:underline inline-flex items-center gap-1 font-semibold"
+                      className="text-xs text-red-400 mt-1 hover:underline inline-flex items-center gap-1 font-semibold cursor-pointer"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                       Quitar Documento
@@ -503,9 +503,9 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
                   </div>
                 ) : (
                   <label className="flex flex-col items-center gap-1.5 cursor-pointer">
-                    <Upload className={`w-7 h-7 ${dragActive ? "text-sky-500 animate-bounce" : "text-slate-400"}`} />
-                    <span className="text-xs font-bold text-slate-700">Arrastre aquí el archivo PDF del manifiesto</span>
-                    <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">o haga clic para seleccionar</span>
+                    <Upload className={`w-7 h-7 ${dragActive ? "text-sky-500 animate-bounce" : "text-slate-500"}`} />
+                    <span className="text-xs font-bold text-slate-300">Arrastre aquí el archivo PDF del manifiesto</span>
+                    <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">o haga clic para seleccionar</span>
                     <input
                       type="file"
                       accept=".pdf"
@@ -530,22 +530,22 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
           </div>
 
           {/* 2. GESTIÓN EXTERNA */}
-          <div className="border border-sky-200 rounded-2xl p-5 bg-sky-100/50 space-y-5">
-            <div className="flex items-center gap-2 border-b border-emerald-100/60 pb-3">
-              <Truck className="w-5 h-5 text-emerald-600" />
-              <h3 className="text-sm font-black text-emerald-950 uppercase tracking-wider">GESTIÓN EXTERNA</h3>
+          <div className="border border-slate-800 rounded-2xl p-5 bg-slate-950 space-y-5">
+            <div className="flex items-center gap-2 border-b border-emerald-900 pb-3">
+              <Truck className="w-5 h-5 text-emerald-400" />
+              <h3 className="text-sm font-black text-emerald-400 uppercase tracking-wider m-0">GESTIÓN EXTERNA</h3>
             </div>
 
             <div className="space-y-4">
               <div className="space-y-1.5">
-                <label className="block text-xs font-bold text-slate-700 tracking-wider uppercase">Operador Transportista</label>
+                <label className="block text-xs font-bold text-slate-300 tracking-wider uppercase">Operador Transportista</label>
                 <select
                   value={transportista}
                   onChange={e => {
                     setTr(e.target.value);
                     setTrCustom("");
                   }}
-                  className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm focus:border-sky-500 outline-none font-semibold text-slate-700 cursor-pointer"
+                  className="w-full rounded-xl border border-slate-750 bg-white px-4 py-3 text-sm focus:border-sky-500 outline-none font-semibold text-slate-900 cursor-pointer"
                 >
                   <option value="IDM S.A.">IDM S.A.</option>
                   <option value="Bravo Energy">Bravo Energy</option>
@@ -559,7 +559,7 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
                     placeholder="Escriba el nombre del operador transportista"
                     value={transportistaCustom}
                     onChange={e => setTrCustom(e.target.value)}
-                    className="w-full rounded-xl border border-slate-300 px-4 py-2.5 text-sm focus:border-sky-500 mt-2 bg-white"
+                    className="w-full rounded-xl border border-slate-750 px-4 py-2.5 text-sm focus:border-sky-500 mt-2 bg-white text-slate-900"
                   />
                 )}
                 {errors.transportista && (
@@ -579,20 +579,20 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
                     setPat(e.target.value);
                     setErrors(prev => ({ ...prev, patente: "" }));
                   }}
-                  className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm focus:border-sky-500 outline-none bg-white font-mono uppercase"
+                  className="w-full rounded-xl border border-slate-750 px-4 py-3 text-sm focus:border-sky-500 outline-none bg-white font-mono uppercase text-slate-900"
                 />
               </FLabel>
             </div>
 
             <div className="space-y-4">
               <FLabel label="Fecha de tratamiento" error={errors.fechaTratamiento}>
-                <DateInput value={fechaTratamiento} onChange={setFechaTratamiento} className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm focus:border-sky-500" />
+                <DateInput value={fechaTratamiento} onChange={setFechaTratamiento} className="w-full rounded-xl border border-slate-750 bg-white px-4 py-3 text-sm focus:border-sky-500 text-slate-900" />
               </FLabel>
             </div>
 
             {/* Simulated File Upload Drag/Drop zone - Certificate */}
             <div className="space-y-2">
-              <label className="block text-xs font-bold text-slate-700 tracking-wider uppercase">
+              <label className="block text-xs font-bold text-slate-300 tracking-wider uppercase">
                 Certificado de Tratamiento y/o Disp.final (PDF)
               </label>
               <div
@@ -602,20 +602,20 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
                 onDrop={handleDropCert}
                 className={`border-2 border-dashed rounded-xl p-5 text-center transition-all ${
                   pdfCertificadoCargado 
-                    ? "border-emerald-400 bg-emerald-50/20 text-emerald-800" 
+                    ? "border-emerald-500 bg-emerald-950/20 text-emerald-300" 
                     : dragActiveCert 
-                    ? "border-sky-500 bg-sky-50/50 text-sky-800" 
-                    : "border-slate-300 hover:border-slate-400 bg-slate-50/20 text-slate-600"
+                    ? "border-sky-500 bg-sky-950/30 text-sky-300" 
+                    : "border-slate-850 hover:border-slate-750 bg-slate-900/50 text-slate-400"
                 }`}
               >
                 {pdfCertificadoCargado ? (
                   <div className="flex flex-col items-center gap-1.5">
-                    <FileText className="w-7 h-7 text-emerald-500" />
-                    <div className="text-xs font-bold uppercase tracking-wider">Certificado_Cargado.pdf</div>
+                    <FileText className="w-7 h-7 text-emerald-400" />
+                    <div className="text-xs font-bold uppercase tracking-wider text-slate-205">Certificado_Cargado.pdf</div>
                     <button 
                       type="button"
                       onClick={() => setPdfCert(false)}
-                      className="text-xs text-red-500 mt-1 hover:underline inline-flex items-center gap-1 font-semibold"
+                      className="text-xs text-red-400 mt-1 hover:underline inline-flex items-center gap-1 font-semibold cursor-pointer"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                       Quitar Certificado
@@ -623,9 +623,9 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
                   </div>
                 ) : (
                   <label className="flex flex-col items-center gap-1.5 cursor-pointer">
-                    <Upload className={`w-7 h-7 ${dragActiveCert ? "text-sky-500 animate-bounce" : "text-slate-400"}`} />
-                    <span className="text-xs font-bold text-slate-700">Arrastre aquí el archivo PDF del certificado</span>
-                    <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">o haga clic para seleccionar</span>
+                    <Upload className={`w-7 h-7 ${dragActiveCert ? "text-sky-500 animate-bounce" : "text-slate-500"}`} />
+                    <span className="text-xs font-bold text-slate-300">Arrastre aquí el archivo PDF del certificado</span>
+                    <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">o haga clic para seleccionar</span>
                     <input
                       type="file"
                       accept=".pdf"
@@ -651,7 +651,7 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
             className={`w-full py-4 px-4 rounded-xl font-bold uppercase tracking-wider text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer ${
               saved 
                 ? "bg-emerald-600 text-white" 
-                : "bg-slate-900 hover:bg-slate-800 text-white"
+                : "bg-slate-950 hover:bg-slate-850 text-white border border-slate-800"
             }`}
           >
             {saved ? (
@@ -667,7 +667,7 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
         </div>
       </div>
       
-      <p className="text-center text-[10px] text-gray-400 font-semibold uppercase tracking-wider mt-4">
+      <p className="text-center text-[10px] text-slate-505 font-semibold uppercase tracking-wider mt-4">
         Asignación de Certificación de Control Ambiental
       </p>
     </div>
@@ -678,7 +678,7 @@ export const RetiroExternoForm: React.FC<RetiroExternoFormProps> = ({ setScreen,
 const FLabel: React.FC<{ label: string; error?: string; children: React.ReactNode }> = ({ label, error, children }) => {
   return (
     <div className="space-y-1.5">
-      <label className="block text-xs font-bold text-slate-700 tracking-wider uppercase">
+      <label className="block text-xs font-bold text-slate-300 tracking-wider uppercase">
         {label}
       </label>
       {children}

@@ -201,6 +201,15 @@ export const HistorialTable: React.FC<HistorialTableProps> = ({ data, tipo, setD
   return (
     <div className="space-y-4">
       
+      {tipo === "externo" && (
+        <div className="bg-sky-50 border border-sky-200/80 p-3.5 rounded-xl text-xs text-slate-700 flex items-start gap-2.5 shadow-sm leading-relaxed">
+          <span className="text-base select-none">💡</span>
+          <p className="m-0 font-medium text-slate-650">
+            <strong>Cómo Ver los PDF Subidos:</strong> Esta tabla técnica de trazabilidad contiene {cols.length} columnas. Para acceder a los botones de visualización de <strong>Manifiesto pdf</strong> y <strong>Certificado pdf</strong>, simplemente <strong>deslice la tabla hacia la derecha</strong> (usando la barra de desplazamiento inferior). También puede acceder a ellos y verlos de forma directa ingresando a la nueva sección de <strong>"Documentos"</strong> arriba.
+          </p>
+        </div>
+      )}
+
       {/* Table filters */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
         

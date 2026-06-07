@@ -56,47 +56,6 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ setScreen, alerts }) => 
           </p>
         </motion.div>
 
-        {/* Regulatory Warnings Block */}
-        {alerts.length > 0 && (
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4 }}
-            className="mb-10 max-w-3xl mx-auto w-full space-y-3"
-          >
-            <div className="text-xs font-bold text-red-600 uppercase tracking-widest flex items-center gap-2 mb-1">
-              <ShieldAlert className="w-4 h-4 animate-pulse text-red-600" />
-              Notificaciones de Vencimientos Relativas a Residuos Peligrosos (Límite Legal: 24 Meses)
-            </div>
-            
-            {alerts.map((al) => (
-              <div 
-                key={al.id} 
-                className={`flex gap-4 items-start p-4 rounded-xl border text-sm backdrop-blur-sm transition-all ${
-                  al.level === "critica" 
-                    ? "bg-red-50 border-red-200 text-red-950 shadow-sm" 
-                    : "bg-amber-50 border-amber-200 text-amber-950 shadow-sm"
-                }`}
-              >
-                <div className="p-1 rounded-lg bg-black/5 mt-0.5">
-                  <AlertTriangle className={`w-5 h-5 ${al.level === "critica" ? "text-red-600" : "text-amber-600"}`} />
-                </div>
-                <div className="flex-1">
-                  <div className="font-bold flex items-center gap-2">
-                    <span>{al.corriente} · {al.level === "critica" ? "ALERTA CRÍTICA" : "ALERTA PREVENTIVA"}</span>
-                    <span className="text-xs px-2 py-0.5 rounded-full bg-black/10 font-mono">
-                      {al.months} meses acopiado
-                    </span>
-                  </div>
-                  <p className="text-xs text-slate-700 mt-1 font-medium">
-                    Residuo registrado el <strong className="font-semibold text-slate-900">{al.fecha}</strong> para la categoría <span className="underline italic">{al.categoria}</span>. Requiere retiro y tratamiento urgente antes de infringir la normativa vigente.
-                  </p>
-                </div>
-              </div>
-            ))}
-          </motion.div>
-        )}
-
         {/* Bento Grid Actions */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto w-full mb-4">
           

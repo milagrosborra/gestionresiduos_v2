@@ -164,24 +164,10 @@ export default function App() {
     });
   };
 
-  // 2. Compute live warning alerts in June 2026 for hazardous acopios exceeding legal constraints
+  // 2. Disable live warning alerts as requested
   const activeAlerts = useMemo<AlertaAlmacenamiento[]>(() => {
-    return registros
-      .filter(r => r.categoria === "Residuos Peligrosos")
-      .map(r => {
-        const elapsed = monthsAgo(r.fecha);
-        
-        // Find if this specific acopio has already been completely cleared by a corresponding output (by stream)
-        // For simplicity, we flag active acopio items if elapsed months exceed pre-regulatory thresholds
-        return {
-          ...r,
-          months: elapsed,
-          level: (elapsed >= 24 ? "critica" : "preventiva") as "critica" | "preventiva"
-        };
-      })
-      .filter(a => a.months >= 22)
-      .sort((a, b) => b.months - a.months);
-  }, [registros]);
+    return [];
+  }, []);
 
   return (
     <div className="bg-slate-50 min-h-screen text-slate-800 antialiased font-sans flex flex-col justify-between">
