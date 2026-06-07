@@ -36,12 +36,14 @@ export interface RetiroExterno {
   embalaje: string; // Embalaje (e.g., "1A1", "granel", "Otros" / custom text)
   observaciones: string; // Observaciones
   pdfCargado: boolean; // True if Manifiesto PDF uploaded
+  linkManifiesto?: string; // Link to electronic manifest
 
   // GESTIÓN EXTERNA
   transportista: string; // Operador Transportista (dropdown or Otros)
   patente: string; // Patente vehículo
   fechaTratamiento: string; // Fecha de tratamiento
   pdfCertificadoCargado: boolean; // True if Certificado Tratamiento PDF uploaded
+  linkCertificado?: string; // Link to certificate of treatment
 }
 
 export interface AlertaAlmacenamiento {

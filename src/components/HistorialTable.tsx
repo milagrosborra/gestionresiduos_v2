@@ -127,11 +127,11 @@ export const HistorialTable: React.FC<HistorialTableProps> = ({ data, tipo, setD
         "fechaRetiro",
         "embalaje",
         "observaciones",
-        "pdfCargado",
+        "linkManifiesto",
         "transportista",
         "patente",
         "fechaTratamiento",
-        "pdfCertificadoCargado"
+        "linkCertificado"
       ];
 
   const colLabel: Record<string, string> = {
@@ -148,13 +148,13 @@ export const HistorialTable: React.FC<HistorialTableProps> = ({ data, tipo, setD
     fechaRetiro: "F. retiro",
     embalaje: "Embalaje",
     observaciones: "Observaciones",
-    pdfCargado: "Manifiesto pdf",
+    linkManifiesto: "Link a Manifiesto electrónico",
 
     // GESTIÓN EXTERNA
     transportista: "Op. transportista",
     patente: "Patente",
     fechaTratamiento: "F. tratamiento",
-    pdfCertificadoCargado: "Certificado pdf"
+    linkCertificado: "Link a Certificado de Tratamiento y/o Disp.final"
   };
 
   // Extract all files currently loaded in the repository from previous saves
@@ -200,15 +200,6 @@ export const HistorialTable: React.FC<HistorialTableProps> = ({ data, tipo, setD
 
   return (
     <div className="space-y-4">
-      
-      {tipo === "externo" && (
-        <div className="bg-sky-50 border border-sky-200/80 p-3.5 rounded-xl text-xs text-slate-700 flex items-start gap-2.5 shadow-sm leading-relaxed">
-          <span className="text-base select-none">💡</span>
-          <p className="m-0 font-medium text-slate-650">
-            <strong>Cómo Ver los PDF Subidos:</strong> Esta tabla técnica de trazabilidad contiene {cols.length} columnas. Para acceder a los botones de visualización de <strong>Manifiesto pdf</strong> y <strong>Certificado pdf</strong>, simplemente <strong>deslice la tabla hacia la derecha</strong> (usando la barra de desplazamiento inferior). También puede acceder a ellos y verlos de forma directa ingresando a la nueva sección de <strong>"Documentos"</strong> arriba.
-          </p>
-        </div>
-      )}
 
       {/* Table filters */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
@@ -344,22 +335,20 @@ export const HistorialTable: React.FC<HistorialTableProps> = ({ data, tipo, setD
                                 >
                                   {val}
                                 </span>
-                              ) : col === "pdfCargado" || col === "pdfCertificadoCargado" ? (
+                              ) : col === "linkManifiesto" || col === "linkCertificado" ? (
                                 val ? (
-                                  <button 
-                                    type="button"
-                                    onClick={() => {
-                                      setSelectedPdfRow(row);
-                                      setSelectedDocType(col === "pdfCargado" ? "manifiesto" : "certificado");
-                                    }}
-                                    className="inline-flex items-center gap-1 text-[10px] uppercase font-bold px-2 py-1 rounded bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 cursor-pointer shadow-sm transition-all text-xs"
+                                  <a 
+                                    href={val.startsWith("http") ? val : `https://${val}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-sky-600 hover:text-sky-800 hover:underline font-semibold block max-w-[130px] overflow-hidden text-ellipsis whitespace-nowrap"
+                                    title={val}
                                   >
-                                    <FileCheck className="w-3.5 h-3.5 text-emerald-600 animate-pulse" />
-                                    Subido (Ver)
-                                  </button>
+                                    {val}
+                                  </a>
                                 ) : (
-                                  <span className="text-[10px] font-black text-red-500 uppercase tracking-wider bg-red-50/50 border border-red-100 px-2 py-1 rounded-md inline-block">
-                                    Pendiente
+                                  <span className="text-[10px] font-medium text-slate-400 italic bg-slate-50 border border-slate-100 px-2 py-1 rounded-md inline-block">
+                                    No provisto
                                   </span>
                                 )
                               ) : (
@@ -430,234 +419,6 @@ export const HistorialTable: React.FC<HistorialTableProps> = ({ data, tipo, setD
           ))}
         </div>
       </div>
-
-      {/* Simulated Document PDF Viewer Modal */}
-      {selectedPdfRow && (
-        <div className="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-5xl w-full border border-slate-200 overflow-hidden flex flex-col md:flex-row h-[85vh]">
-            
-            {/* Left Column: Repository document catalog */}
-            <div className="w-full md:w-80 bg-slate-100 border-r border-slate-200 flex flex-col min-h-0 bg-gradient-to-b from-slate-50 to-slate-100 flex-shrink-0">
-              <div className="p-4 border-b border-slate-200 bg-slate-100 flex items-center gap-2">
-                <FolderOpen className="w-5 h-5 text-sky-600" />
-                <div>
-                  <span className="font-extrabold text-xs text-slate-800 uppercase tracking-wider block">REPOSITORIO DIGITAL</span>
-                  <p className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Documentos cargados sgi</p>
-                </div>
-              </div>
-              
-              <div className="p-2.5 space-y-1 overflow-y-auto flex-1">
-                {allRepositoryFiles.length === 0 ? (
-                  <p className="text-xxs text-slate-400 uppercase font-bold text-center mt-6">No hay documentos cargados</p>
-                ) : (
-                  allRepositoryFiles.map((file) => {
-                    const isSelected = selectedPdfRow.id === file.row.id && selectedDocType === file.type;
-                    return (
-                      <button
-                        key={file.id}
-                        onClick={() => {
-                          setSelectedPdfRow(file.row);
-                          setSelectedDocType(file.type);
-                        }}
-                        className={`w-full text-left p-3 rounded-xl border text-xs font-semibold flex items-center gap-2.5 transition-all text-xs ${
-                          isSelected
-                            ? "bg-sky-600 border-sky-600 text-white shadow-sm font-bold scale-[1.01]"
-                            : "bg-white border-slate-200 hover:border-slate-350 text-slate-700"
-                        }`}
-                      >
-                        <FileText className={`w-4 h-4 flex-shrink-0 ${isSelected ? "text-white" : "text-slate-400"}`} />
-                        <div className="truncate flex-1 min-w-0">
-                          <p className="truncate m-0 leading-tight">{file.title}</p>
-                          <span className={`text-[8px] uppercase block mt-0.5 tracking-wider font-bold ${isSelected ? "text-sky-100" : "text-slate-400"}`}>
-                            {file.type === "manifiesto" ? "Gestión Interna" : "Gestión Externa"}
-                          </span>
-                        </div>
-                      </button>
-                    );
-                  })
-                )}
-              </div>
-            </div>
-
-            {/* Right Column: PDF Simulator sheet */}
-            <div className="flex-1 flex flex-col min-h-0 bg-slate-200">
-              {/* Modal Header */}
-              <div className="bg-slate-900 px-6 py-4 flex items-center justify-between text-white flex-shrink-0">
-                <div className="flex items-center gap-2">
-                  <FileText className="w-5 h-5 text-emerald-500 animate-pulse" />
-                  <span className="font-extrabold text-sm tracking-widest uppercase">
-                    VISOR DE {selectedDocType === "manifiesto" ? "MANIFIESTO ELECTRONICO" : "CERTIFICADO DE TRATAMIENTO"}
-                  </span>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setSelectedPdfRow(null)}
-                  className="text-slate-400 hover:text-white p-1.5 hover:bg-slate-800 rounded-lg transition-colors cursor-pointer"
-                  title="Cerrar Repositorio"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-
-              {/* Simulated Paper Sheets */}
-              <div className="p-6 bg-slate-300 flex-1 overflow-y-auto flex justify-center">
-                <div className="bg-white p-8 rounded-xl shadow-2xl border border-slate-350 w-full max-w-2xl min-h-[750px] flex flex-col justify-between text-slate-800 relative font-sans">
-                  
-                  {/* Official watermarks & stamps decoration */}
-                  <div className="absolute right-8 top-28 border-4 border-dashed border-emerald-500/30 rounded-full px-4 py-2 rotate-12 text-emerald-500/30 font-black text-xs font-mono select-none pointer-events-none uppercase tracking-widest">
-                    SGI REGISTRO CERTIFICADO
-                  </div>
-
-                  {/* Simulated Document Header */}
-                  <div className="space-y-4">
-                    <div className="flex justify-between items-start border-b-2 border-slate-850 pb-4">
-                      <div>
-                        <h3 className="text-sm font-black uppercase text-slate-900 tracking-wider">Sistema SGI de Residuos</h3>
-                        <p className="text-[9px] text-slate-500 uppercase tracking-widest font-black">Control de Trazabilidad y Almacenamiento Transitorio</p>
-                      </div>
-                      <div className="text-right">
-                        <span className="text-xxs uppercase font-mono px-2 py-1 rounded bg-slate-100 text-slate-600 font-bold">Residuos</span>
-                        <p className="text-[10px] font-mono mt-1 text-slate-500 font-bold">ID Registro: {selectedPdfRow.id}</p>
-                      </div>
-                    </div>
-
-                    <div className="text-center py-2 bg-slate-100 border border-slate-200 rounded-lg">
-                      <span className="text-xs font-extrabold uppercase tracking-wide text-slate-705">
-                        {selectedDocType === "manifiesto" 
-                          ? "Manifiesto de Retiro Externo (Gestión Interna)" 
-                          : "Certificado de Tratamiento y/o Disposición Final (Gestión Externa)"}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Substantive Data Layout */}
-                  <div className="my-6 space-y-5 text-xs">
-                    
-                    {/* Category & Stream block */}
-                    <div className="bg-slate-50/50 p-4 rounded-xl border border-slate-200 space-y-2">
-                      <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 block border-b pb-1">1. Especificaciones del Residuo</span>
-                      <div className="grid grid-cols-2 gap-y-1.5 gap-x-4">
-                        <div>
-                          <span className="text-slate-400 font-semibold uppercase text-xxs block mb-0.5">Categoría Legal</span>
-                          <p className="font-extrabold text-slate-800 text-xs">{selectedPdfRow.categoria}</p>
-                        </div>
-                        <div>
-                          <span className="text-slate-400 font-semibold uppercase text-xxs block mb-0.5">Corriente Declarada</span>
-                          <p className="font-extrabold text-slate-800 text-xs">{selectedPdfRow.corriente}</p>
-                        </div>
-                        <div>
-                          <span className="text-slate-400 font-semibold uppercase text-xxs block mb-0.5">Cantidad Declarada</span>
-                          <p className="font-extrabold text-slate-850 text-xs">{selectedPdfRow.cantEst || selectedPdfRow.cantidad} {selectedPdfRow.unidad}</p>
-                        </div>
-                        <div>
-                          <span className="text-slate-400 font-semibold uppercase text-xxs block mb-0.5">Fecha Registro SGI</span>
-                          <p className="font-mono font-bold text-slate-700 text-xs">{selectedPdfRow.fecha}</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* 1. GESTIÓN INTERNA */}
-                    <div className="bg-sky-50/20 p-4 rounded-xl border border-sky-100/60 space-y-2">
-                      <span className="text-[10px] uppercase font-bold tracking-wider text-sky-700 block border-b border-sky-100 pb-1">2. Datos de Gestión Interna</span>
-                      <div className="grid grid-cols-2 gap-y-1.5 gap-x-4">
-                        <div>
-                          <span className="text-slate-400 font-semibold uppercase text-xxs block mb-0.5">N° de Manifiesto electrónico</span>
-                          <p className="font-bold text-sky-950 text-xs">{selectedPdfRow.manifesto || "N/A"}</p>
-                        </div>
-                        <div>
-                          <span className="text-slate-400 font-semibold uppercase text-xxs block mb-0.5">Fecha Manifiesto</span>
-                          <p className="font-mono font-bold text-slate-800 text-xs">{selectedPdfRow.fechaManifiesto || selectedPdfRow.fecha}</p>
-                        </div>
-                        <div>
-                          <span className="text-slate-400 font-semibold uppercase text-xxs block mb-0.5">Fecha Retiro Ef.</span>
-                          <p className="font-mono font-bold text-slate-850 text-xs">{selectedPdfRow.fechaRetiro || selectedPdfRow.fecha}</p>
-                        </div>
-                        <div>
-                          <span className="text-slate-400 font-semibold uppercase text-xxs block mb-0.5">Embalaje</span>
-                          <p className="font-bold text-slate-800 text-xs">{selectedPdfRow.embalaje || "1A1"}</p>
-                        </div>
-                        <div className="col-span-2">
-                          <span className="text-slate-400 font-semibold uppercase text-xxs block mb-0.5">Observaciones de Acopio</span>
-                          <p className="font-semibold text-slate-700 text-xs italic">"{selectedPdfRow.observaciones || "S/O"}"</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* 2. GESTIÓN EXTERNA */}
-                    <div className="bg-emerald-50/20 p-4 rounded-xl border border-emerald-100/60 space-y-2">
-                      <span className="text-[10px] uppercase font-bold tracking-wider text-emerald-700 block border-b border-emerald-100 pb-1">3. Datos de Gestión Externa</span>
-                      <div className="grid grid-cols-2 gap-y-1.5 gap-x-4">
-                        <div>
-                          <span className="text-slate-400 font-semibold uppercase text-xxs block mb-0.5">Operador Transportista</span>
-                          <p className="font-bold text-emerald-950 text-xs">{selectedPdfRow.transportista || "N/A"}</p>
-                        </div>
-                        <div>
-                          <span className="text-slate-400 font-semibold uppercase text-xxs block mb-0.5">Patente vehículo</span>
-                          <p className="font-mono font-bold text-slate-800 uppercase tracking-widest bg-white inline-block px-1.5 py-0.5 rounded border border-slate-250 text-xs">{selectedPdfRow.patente || "N/A"}</p>
-                        </div>
-                        <div>
-                          <span className="text-slate-400 font-semibold uppercase text-xxs block mb-0.5">Fecha de tratamiento</span>
-                          <p className="font-mono font-bold text-slate-750 text-xs">{selectedPdfRow.fechaTratamiento || selectedPdfRow.fecha}</p>
-                        </div>
-                        <div>
-                          <span className="text-slate-400 font-semibold uppercase text-xxs block mb-0.5">Certificado de Tratamiento Estado</span>
-                          <p className={`font-bold tracking-wide uppercase text-[10px] inline-block px-2 py-0.5 rounded ${selectedPdfRow.pdfCertificadoCargado ? "bg-emerald-100 text-emerald-800" : "bg-amber-100 text-amber-800"}`}>
-                            {selectedPdfRow.pdfCertificadoCargado ? "Subido / Certificado Convalidado" : "Pendiente de Carga"}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-
-                  {/* Simulated signature & barcode stamp footer */}
-                  <div className="border-t border-slate-200 pt-5 mt-auto flex justify-between items-end">
-                    <div className="text-left">
-                      <div className="text-[7px] font-mono text-slate-450 tracking-tight leading-normal uppercase">
-                        CÓDIGO SGI DIGITAL DE AUTORIZACIÓN<br />
-                        |||| | | |||| || ||||| ||| ||| | ||||| | ||
-                        <span className="block mt-0.5 text-[8px] tracking-[0.22em] font-bold text-slate-650 uppercase">SGI-TRAZA-{selectedPdfRow.id}</span>
-                      </div>
-                    </div>
-                    <div className="text-center w-36 border-t border-slate-300 pt-1">
-                      <span className="text-[7px] text-slate-400 block font-bold uppercase tracking-wider">Autoridad de Control</span>
-                      <span className="text-[8px] font-extrabold text-slate-700 uppercase tracking-widest block mt-0.5 font-mono">CC-SGI-OK</span>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
-              {/* Modal Actions */}
-              <div className="bg-slate-900 border-t border-slate-800 px-6 py-4 flex gap-3 justify-end flex-shrink-0">
-                <button
-                  type="button"
-                  onClick={() => {
-                    alert("Imprimiendo copia del documento del repositorio...");
-                    window.print();
-                  }}
-                  className="px-4 py-2 bg-slate-800 hover:bg-slate-750 border border-slate-750 hover:border-slate-600 rounded-xl text-xs font-bold font-mono text-white flex items-center justify-center gap-1.5 cursor-pointer transition-all active:scale-95 animate-none"
-                >
-                  <Printer className="w-3.5 h-3.5" />
-                  Imprimir
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    const docName = selectedDocType === "manifiesto" ? `Manifiesto_${selectedPdfRow.manifesto}.pdf` : `Certificado_${selectedPdfRow.transportista}.pdf`;
-                    alert(`Descargando copia original desde repositorio: ${docName}`);
-                  }}
-                  className="px-5 py-2 bg-emerald-600 hover:bg-emerald-505 hover:bg-emerald-500 rounded-xl text-xs font-bold font-mono text-white flex items-center justify-center gap-1.5 cursor-pointer transition-all active:scale-95 shadow-sm animate-none"
-                >
-                  <Download className="w-3.5 h-3.5" />
-                  Descargar PDF
-                </button>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      )}
 
     </div>
   );

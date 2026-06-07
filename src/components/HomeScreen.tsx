@@ -51,9 +51,6 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ setScreen, alerts }) => 
           transition={{ delay: 0.3, duration: 0.5 }}
           className="text-center mb-10 max-w-xl mx-auto"
         >
-          <p className="text-slate-600 text-xs md:text-sm font-medium leading-relaxed m-0">
-            Control de acopios, trazabilidad de fletes y cumplimiento de plazos legales de almacenamiento transitorio.
-          </p>
         </motion.div>
 
         {/* Bento Grid Actions */}

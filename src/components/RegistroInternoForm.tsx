@@ -6,6 +6,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowLeft, CheckCircle2, AlertOctagon, HelpCircle } from "lucide-react";
+import { ParametrosPopUp } from "./ParametrosPopUp";
 import { CategoriaResiduo } from "../types";
 import { DateInput } from "./DateInput";
 import { CORRIENTES, UNIDADES, UNIDAD_HABITUAL, CAT_COLOR, COLORS } from "../constants";
@@ -100,10 +101,10 @@ export const RegistroInternoForm: React.FC<RegistroInternoFormProps> = ({ setScr
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 py-10 px-4 flex flex-col justify-between selection:bg-sky-500 selection:text-white">
+    <div className="min-h-screen bg-slate-950 py-10 px-4 flex flex-col justify-between selection:bg-sky-500 selection:text-white">
       <div className="max-w-xl w-full mx-auto bg-sky-50 border border-sky-250 shadow-xl rounded-2xl overflow-hidden self-center">
         
-        {/* Form header */}
+         {/* Form header */}
         <div className="bg-slate-900 px-6 py-5 text-white flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button 
@@ -114,7 +115,7 @@ export const RegistroInternoForm: React.FC<RegistroInternoFormProps> = ({ setScr
               <ArrowLeft className="w-5 h-5" />
             </button>
             <div>
-              <h2 className="text-xl font-black tracking-wider m-0 uppercase">REGISTRO DE ACOPIO INTERNO</h2>
+              <h2 className="text-xl font-black tracking-wider m-0 uppercase flex items-center gap-1.5">REGISTRO DE ACOPIO INTERNO</h2>
               <p className="text-[10px] text-slate-400 tracking-wider uppercase font-semibold">Generación Local</p>
             </div>
           </div>
@@ -125,10 +126,11 @@ export const RegistroInternoForm: React.FC<RegistroInternoFormProps> = ({ setScr
         <div className="p-6 space-y-6">
           
           {/* Subtitle capsule */}
-          <div className="p-2.5 bg-sky-50 border border-sky-100 rounded-xl">
+          <div className="p-2.5 bg-sky-50 border border-sky-101 rounded-xl flex flex-col gap-2">
             <span className="text-xs font-black text-sky-800 uppercase tracking-widest pl-1">
               Datos del Residuo
             </span>
+            <ParametrosPopUp />
           </div>
           
           {/* Category Input */}

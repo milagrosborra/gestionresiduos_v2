@@ -238,7 +238,7 @@ export const DashboardCharts: React.FC<DashboardChartsProps> = ({ registros, ret
         {/* Category breakdown Pie/Donut Chart */}
         <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-4">
           <h4 className="text-xs font-bold text-slate-600 tracking-wider uppercase">
-            Desglose por Categoría Jurídica
+            Distribución por Categoria de residuo
           </h4>
           {Object.keys(byCat).length === 0 ? (
             <p className="text-sm text-slate-400 text-center py-10">Sin datos para desglosar.</p>
@@ -298,94 +298,6 @@ export const DashboardCharts: React.FC<DashboardChartsProps> = ({ registros, ret
           )}
         </div>
 
-      </div>
-
-      {/* Evolution Timeline line chart */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-4">
-        <div className="flex items-center justify-between">
-          <h4 className="text-xs font-bold text-slate-600 tracking-wider uppercase">
-            Evolución Cronológica de Generaciones
-          </h4>
-          <span className="text-[10px] bg-slate-100 text-slate-500 font-bold px-2 py-0.5 rounded-md uppercase tracking-wider">
-            Historial Mensual
-          </span>
-        </div>
-        
-        {monthLabels.length === 0 ? (
-          <p className="text-sm text-slate-400 text-center py-12">Sin datos históricos suficientes.</p>
-        ) : (
-          <div className="pt-4 h-48 w-full">
-            {(() => {
-              const w = 600;
-              const h = 150;
-              const padL = 40;
-              const padR = 20;
-              const padT = 15;
-              const padB = 25;
-              const iw = w - padL - padR;
-              const ih = h - padT - padB;
-              
-              const maxVal = Math.max(...monthVals, 1);
-              
-              // Calculate mapping coordinates
-              const points = monthVals.map((val, idx) => {
-                const x = padL + (idx / Math.max(monthLabels.length - 1, 1)) * iw;
-                const y = padT + ih - (val / maxVal) * ih;
-                return { x, y, val, label: monthLabels[idx] };
-              });
-
-              // Create polyline paths
-              const linePath = points.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`).join(" ");
-              const areaPath = `${linePath} L ${points[points.length - 1].x} ${padT + ih} L ${points[0].x} ${padT + ih} Z`;
-
-              return (
-                <svg className="w-full h-full overflow-visible" viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none">
-                  <defs>
-                    <linearGradient id="areaGrad" x1="0" x2="0" y1="0" y2="1">
-                      <stop offset="0%" stopColor="#2e86c1" stopOpacity="0.2" />
-                      <stop offset="100%" stopColor="#2e86c1" stopOpacity="0" />
-                    </linearGradient>
-                  </defs>
-                  
-                  {/* Grid Lines */}
-                  {[0, 0.5, 1].map((ratio) => {
-                    const y = padT + ih * (1 - ratio);
-                    return (
-                      <g key={ratio}>
-                        <line x1={padL} y1={y} x2={w - padR} y2={y} stroke="#f1f5f9" strokeWidth="1" />
-                        <text x={padL - 8} y={y + 3.5} textAnchor="end" fontSize="9" fill="#94a3b8" className="font-semibold select-none">
-                          {Math.round(maxVal * ratio).toLocaleString()}
-                        </text>
-                      </g>
-                    );
-                  })}
-
-                  {/* Draw area and line */}
-                  <path d={areaPath} fill="url(#areaGrad)" />
-                  <path d={linePath} fill="none" stroke="#2e86c1" strokeWidth="2.2" strokeLinejoin="round" strokeLinecap="round" />
-
-                  {/* Nodes */}
-                  {points.map((p, i) => (
-                    <g key={i} className="group">
-                      <circle cx={p.x} cy={p.y} r="3.5" fill="#ffffff" stroke="#2e86c1" strokeWidth="2" />
-                      {/* Tooltip triggers */}
-                      <text x={p.x} y={p.y - 8} textAnchor="middle" fontSize="9" fill="#1e293b" className="font-black opacity-0 group-hover:opacity-100 transition-opacity bg-white select-none">
-                        {p.val}
-                      </text>
-                    </g>
-                  ))}
-
-                  {/* Bottom Labels */}
-                  {points.map((p, i) => (
-                    <text key={i} x={p.x} y={h - 6} textAnchor="middle" fontSize="9" fill="#94a3b8" className="font-bold select-none">
-                      {p.label.replace("-", "/")}
-                    </text>
-                  ))}
-                </svg>
-              );
-            })()}
-          </div>
-        )}
       </div>
 
     </div>
