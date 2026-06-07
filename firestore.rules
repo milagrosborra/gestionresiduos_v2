@@ -14,54 +14,17 @@ service cloud.firestore {
     }
 
     function isValidRegistroInterno(data) {
-      return data.keys().hasAll(['id', 'tipo', 'categoria', 'corriente', 'fecha', 'cantidad', 'unidad'])
-        && data.keys().size() == 7
-        && (data.id is int || data.id is float)
+      return (data.id is int || data.id is float)
         && data.tipo == 'interno'
-        && (data.categoria == 'Residuos Industriales No Peligrosos'
-            || data.categoria == 'Residuos Peligrosos'
-            || data.categoria == 'RSU'
-            || data.categoria == 'Compostables'
-            || data.categoria == 'NFU')
-        && data.corriente is string && data.corriente.size() <= 200
-        && data.fecha is string && data.fecha.size() <= 20
-        && (data.cantidad is int || data.cantidad is float) && data.cantidad >= 0
-        && data.unidad is string && data.unidad.size() <= 45;
+        && data.categoria is string
+        && data.corriente is string;
     }
 
     function isValidRetiroExterno(data) {
-      return data.keys().hasAll([
-        'id', 'tipo', 'categoria', 'corriente', 'fecha',
-        'manifesto', 'fechaManifiesto', 'cantEst', 'unidad',
-        'fechaRetiro', 'embalaje', 'observaciones', 'pdfCargado',
-        'linkManifiesto', 'sitioDisposicion',
-        'transportista', 'patente', 'fechaTratamiento', 'pdfCertificadoCargado', 'linkCertificado'
-      ])
-        && data.keys().size() == 20
-        && (data.id is int || data.id is float)
+      return (data.id is int || data.id is float)
         && data.tipo == 'externo'
-        && (data.categoria == 'Residuos Industriales No Peligrosos'
-            || data.categoria == 'Residuos Peligrosos'
-            || data.categoria == 'RSU'
-            || data.categoria == 'Compostables'
-            || data.categoria == 'NFU')
-        && data.corriente is string && data.corriente.size() <= 200
-        && data.fecha is string && data.fecha.size() <= 20
-        && data.manifesto is string && data.manifesto.size() <= 100
-        && data.fechaManifiesto is string && data.fechaManifiesto.size() <= 20
-        && data.cantEst is string && data.cantEst.size() <= 100
-        && data.unidad is string && data.unidad.size() <= 45
-        && data.fechaRetiro is string && data.fechaRetiro.size() <= 20
-        && data.embalaje is string && data.embalaje.size() <= 100
-        && data.observaciones is string && data.observaciones.size() <= 1000
-        && data.pdfCargado is bool
-        && data.linkManifiesto is string && data.linkManifiesto.size() <= 500
-        && data.sitioDisposicion is string && data.sitioDisposicion.size() <= 250
-        && data.transportista is string && data.transportista.size() <= 200
-        && data.patente is string && data.patente.size() <= 50
-        && data.fechaTratamiento is string && data.fechaTratamiento.size() <= 20
-        && data.pdfCertificadoCargado is bool
-        && data.linkCertificado is string && data.linkCertificado.size() <= 500;
+        && data.categoria is string
+        && data.corriente is string;
     }
 
     match /registros/{registroId} {

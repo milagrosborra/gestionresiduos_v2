@@ -140,7 +140,7 @@ export const PanelControl: React.FC<PanelControlProps> = ({
                 onClick={() => setScreen("externo")}
                 className="w-full sm:w-auto px-4.5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-xs font-black transition-all flex items-center justify-center gap-2 shadow-sm cursor-pointer active:scale-97 tracking-wider uppercase"
               >
-                <Truck className="w-4 h-4 text-sky-205" />
+                <Truck className="w-4 h-4 text-sky-200" />
                 Cargar Retiro Externo
               </button>
             )}
