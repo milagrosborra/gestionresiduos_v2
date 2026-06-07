@@ -7,7 +7,7 @@
       "properties": {
         "id": { "type": "integer" },
         "tipo": { "type": "string", "enum": ["interno"] },
-        "categoria": { "type": "string", "enum": ["Residuos Industriales No Peligrosos", "Residuos Peligrosos", "RSU", "Compostables"] },
+        "categoria": { "type": "string", "enum": ["Residuos Industriales No Peligrosos", "Residuos Peligrosos", "RSU", "Compostables", "NFU"] },
         "corriente": { "type": "string" },
         "fecha": { "type": "string" },
         "cantidad": { "type": "number" },
@@ -22,7 +22,7 @@
       "properties": {
         "id": { "type": "integer" },
         "tipo": { "type": "string", "enum": ["externo"] },
-        "categoria": { "type": "string", "enum": ["Residuos Industriales No Peligrosos", "Residuos Peligrosos", "RSU", "Compostables"] },
+        "categoria": { "type": "string", "enum": ["Residuos Industriales No Peligrosos", "Residuos Peligrosos", "RSU", "Compostables", "NFU"] },
         "corriente": { "type": "string" },
         "fecha": { "type": "string" },
         "manifesto": { "type": "string" },
@@ -33,10 +33,13 @@
         "embalaje": { "type": "string" },
         "observaciones": { "type": "string" },
         "pdfCargado": { "type": "boolean" },
+        "linkManifiesto": { "type": "string" },
+        "sitioDisposicion": { "type": "string" },
         "transportista": { "type": "string" },
         "patente": { "type": "string" },
         "fechaTratamiento": { "type": "string" },
-        "pdfCertificadoCargado": { "type": "boolean" }
+        "pdfCertificadoCargado": { "type": "boolean" },
+        "linkCertificado": { "type": "string" }
       },
       "required": [
         "id",
@@ -52,10 +55,13 @@
         "embalaje",
         "observaciones",
         "pdfCargado",
+        "linkManifiesto",
+        "sitioDisposicion",
         "transportista",
         "patente",
         "fechaTratamiento",
-        "pdfCertificadoCargado"
+        "pdfCertificadoCargado",
+        "linkCertificado"
       ]
     }
   },

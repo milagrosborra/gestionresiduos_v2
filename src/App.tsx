@@ -116,6 +116,7 @@ export default function App() {
   // Sync mutations back to cloud (React state-setting triggers matching updates to Firestore)
   const handleSetRegistros = (val: React.SetStateAction<RegistroInterno[]>) => {
     const next = typeof val === "function" ? val(registros) : val;
+    setRegistros(next); // Instant offline-first visual state update
     const currentIds = new Set(registros.map((r) => r.id));
     const nextIds = new Set(next.map((r) => r.id));
 
@@ -141,6 +142,7 @@ export default function App() {
 
   const handleSetRetiros = (val: React.SetStateAction<RetiroExterno[]>) => {
     const next = typeof val === "function" ? val(retiros) : val;
+    setRetiros(next); // Instant offline-first visual state update
     const currentIds = new Set(retiros.map((r) => r.id));
     const nextIds = new Set(next.map((r) => r.id));
 

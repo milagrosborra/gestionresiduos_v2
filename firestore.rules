@@ -34,9 +34,10 @@ service cloud.firestore {
         'id', 'tipo', 'categoria', 'corriente', 'fecha',
         'manifesto', 'fechaManifiesto', 'cantEst', 'unidad',
         'fechaRetiro', 'embalaje', 'observaciones', 'pdfCargado',
-        'transportista', 'patente', 'fechaTratamiento', 'pdfCertificadoCargado'
+        'linkManifiesto', 'sitioDisposicion',
+        'transportista', 'patente', 'fechaTratamiento', 'pdfCertificadoCargado', 'linkCertificado'
       ])
-        && data.keys().size() == 17
+        && data.keys().size() == 20
         && (data.id is int || data.id is float)
         && data.tipo == 'externo'
         && (data.categoria == 'Residuos Industriales No Peligrosos'
@@ -54,10 +55,13 @@ service cloud.firestore {
         && data.embalaje is string && data.embalaje.size() <= 100
         && data.observaciones is string && data.observaciones.size() <= 1000
         && data.pdfCargado is bool
+        && data.linkManifiesto is string && data.linkManifiesto.size() <= 500
+        && data.sitioDisposicion is string && data.sitioDisposicion.size() <= 250
         && data.transportista is string && data.transportista.size() <= 200
         && data.patente is string && data.patente.size() <= 50
         && data.fechaTratamiento is string && data.fechaTratamiento.size() <= 20
-        && data.pdfCertificadoCargado is bool;
+        && data.pdfCertificadoCargado is bool
+        && data.linkCertificado is string && data.linkCertificado.size() <= 500;
     }
 
     match /registros/{registroId} {
